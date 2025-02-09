@@ -10,22 +10,22 @@ import NavGroup from './NavGroup';
 import menuItem from 'menu-items';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
-// ============================== ACA SE DEBE FILTRAR EL MENU SUPERVISION ======================== //
+// ============================== ACA SE DEBE FILTRAR EL MENU de NAVEGACION IZQUIERDO ======================== //
 
 export default function Navigation() {
 
-  const permisosAdministracion = useSelector((state) => state.storeUsuario.permisosAdministracion);
-  const permisosSupervision = useSelector((state) => state.storeUsuario.permisosSupervision);
-  const permisosOperacion = useSelector((state) => state.storeUsuario.permisosOperacion);
+  const usuarioPermisoAdministracion = useSelector((state) => state.storeUsuario.usuarioPermisoAdministracion);
+  const usuarioPermisoSupervision = useSelector((state) => state.storeUsuario.usuarioPermisoSupervision);
+  const usuarioPermisoOperacion = useSelector((state) => state.storeUsuario.usuarioPermisoOperacion);
   
   // Extraer los IDs permitidos de permisosAdministracion
-  const permisosAdministracionIds = permisosAdministracion.map((permiso) => permiso.nombre);
+  const permisosAdministracionIds = usuarioPermisoAdministracion.map((permiso) => permiso.permisoNombre);
 
   // Extraer los IDs permitidos de permisosSupervision
-  const permisosSupervisionIds = permisosSupervision.map((permiso) => permiso.nombre);
+  const permisosSupervisionIds = usuarioPermisoSupervision.map((permiso) => permiso.permisoNombre);
 
   // Extraer los IDs permitidos de permisosOperacion
-  const permisosOperacionIds = permisosOperacion.map((permiso) => permiso.nombre);
+  const permisosOperacionIds = usuarioPermisoOperacion.map((permiso) => permiso.permisoNombre);
 
   let filteredMenu;
 

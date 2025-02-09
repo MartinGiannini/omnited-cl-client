@@ -24,7 +24,7 @@ import { WebRTCProvider } from '../../../../services/webrtc/phone.service';
 export default function HeaderContent() {
   const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));
   const casRol = useSelector((state) => state.storeCas.casRol);
-  const permisosOperacion = useSelector((state) => state.storeUsuario.permisosOperacion);
+  const permisosOperacion = useSelector((state) => state.storeUsuario.usuarioPermisoOperacion);
 
   // Mapeo de componentes por nombre de permiso
   const permisosComponentes = {
@@ -48,7 +48,7 @@ export default function HeaderContent() {
         return (
           <>
             {permisos
-            .map((permiso) => permisosComponentes[permiso.nombre]) // Mapea permisos a componentes
+            .map((permiso) => permisosComponentes[permiso.permisoNombre]) // Mapea permisos a componentes
             .filter((item) => item) // Filtra componentes válidos
             .sort((a, b) => a.orden - b.orden) // Ordena por el atributo `orden`
             .map((item) => item.componente)} {/* Renderiza los componentes ordenados */}

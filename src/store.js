@@ -5,13 +5,14 @@ import notificationSlice from 'store/notificationSlice';
 import wbsSlice from 'store/wbsSlice';
 import userMessagesSlice from 'store/userMessagesSlice';
 import userStatisticsSlice from 'store/userStatistics';
-import webrtcSlice from 'store/webrtcSlice';
-import userOptionsSlice from 'store/usersOptionsSlice';
 import whatsAppSlice from 'store/whatsAppSlice';
 import twitterSlice from 'store/twitterSlice';
 import usuarioSlice from 'store/usuarioSlice';
 import sectorSlice from 'store/sectorSlice';
 import grupoSlice from 'store/grupoSlice';
+import permisosSlice from 'store/permisosSlice';
+import dialogSlice from 'store/dialogSlice';
+import estrategiasSlice from 'store/estrategiasSlice';
 
 import loggerMiddleware from './middleware/loggerMiddleware';
 
@@ -20,15 +21,16 @@ export const store = configureStore({
     storeCas: casSlice,
     storeNotification: notificationSlice,
     storeWbs: wbsSlice,
-    storeWebrtc: webrtcSlice,
     storeUserStatistics: userStatisticsSlice,
     storeUserMessages: userMessagesSlice,
-    storeUserOptions: userOptionsSlice,
     storeWhatsApp: whatsAppSlice,
     storeTwitter: twitterSlice,
     storeUsuario: usuarioSlice,
     storeSector: sectorSlice,
-    storeGrupo: grupoSlice,
+    storeGrupos: grupoSlice,
+    storePermisos: permisosSlice,
+    storeDialog: dialogSlice,
+    storeEstrategias: estrategiasSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
 });

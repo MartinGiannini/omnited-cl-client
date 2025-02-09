@@ -7,31 +7,60 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 
-import { updateEstadoActual } from '../../../../store/usersOptionsSlice';
+import { updateUsuarioEstadoActual } from '../../../../store/usuarioSlice';
 
 // ==============================|| HEADER CONTENT - SELECT ||============================== //
 
 export default function States() {
-  const userOptions = useSelector((state) => state.storeUserOptions);
-  const usuarioEstados = useSelector((state) => state.storeUsuario.estados);
-  const estadoActual = userOptions.estadoActual;
+  const estadoActual = useSelector((state) => state.storeUsuario.usuarioEstadoActual);
+  const usuarioEstados = useSelector((state) => state.storeUsuario.usuarioEstado);
+  const selectedEstado = usuarioEstados.find((E) => E.idEstado === estadoActual);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    dispatch(updateEstadoActual(parseInt(event.target.value)));
+    dispatch(updateUsuarioEstadoActual(parseInt(event.target.value)));
   };
+
+  let comboColor = 'grey';
+  if (selectedEstado) {
+    if (selectedEstado.estadoNombre === 'Activo') {
+      comboColor = 'green';
+    } else if (selectedEstado.estadoProductivo) {
+      comboColor = 'yellow';
+    } else {
+      comboColor = 'red';
+    }
+  }
 
   return (
     <Box sx={{ ml: { xs: 0, md: 1 } }}>
-      <FormControl fullWidth sx={{ width: { xs: '100%', md: 224 } }} variant="outlined" size="small">
+      <FormControl
+        fullWidth
+        sx={{
+          width: { xs: '100%', md: 224 },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: comboColor,
+            },
+            '&:hover fieldset': {
+              borderColor: comboColor,
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: comboColor,
+            },
+          },
+        }}
+        variant="outlined"
+        size="small"
+      >
         <InputLabel id="estado-select-label">Estado</InputLabel>
         <Select labelId="estado-select-label" id="estado-select" value={estadoActual} onChange={handleChange} label="Estado">
           {usuarioEstados
             .slice()
-            .sort((a, b) => a.id - b.id)
+            .sort((a, b) => a.idEstado - b.idEstado)
             .map((estado) => (
-              <MenuItem key={estado.id} value={estado.id}>
-                {estado.nombre}
+              <MenuItem key={estado.idEstado} value={estado.idEstado}>
+                {estado.estadoNombre}
               </MenuItem>
             ))}
         </Select>

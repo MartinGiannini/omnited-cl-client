@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // project import
 import router from 'routes';
 import ThemeCustomization from 'themes';
@@ -12,6 +13,7 @@ import { useWebSocketInicial } from './services/websocket/useWebSocketInicial'
 export default function App() {
 
   const userDataLoaded = useWebSocketInicial();
+  const dialogState = useSelector((state) => state.dialog);
 
   if (!userDataLoaded) {
     return (
@@ -31,5 +33,5 @@ export default function App() {
       </ScrollTop>
     </ThemeCustomization>
   );
- 
+
 }

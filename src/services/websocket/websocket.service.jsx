@@ -72,13 +72,18 @@ export default function WebSocketService() {
                     let parsedPayload;
                     if (typeof payload === "string") {
                         parsedPayload = JSON.parse(payload); // Si es una cadena, parsear a JSON
+                        console.log("*****************************")
+                        console.log("******** Es STRING **********")
+                        console.log("*****************************")
                     } else {
                         parsedPayload = payload; // Si ya es un objeto, úsalo directamente
+                        console.log("*****************************")
+                        console.log("******** Es OBJETO **********")
+                        console.log("*****************************")
                     }
 
-                    const handler = messageHandlers[type] || messageHandlers.default; // Encuentra el handler
-                    console.log("Tipo:", type, "Payload procesado:", parsedPayload);
-                    handler(dispatch, parsedPayload); // Llama al handler con el payload procesado
+                    const handler = messageHandlers[type] || messageHandlers.default;
+                    handler(dispatch, parsedPayload);
                 } catch (error) {
                     console.error("Error procesando el payload:", error);
                 }

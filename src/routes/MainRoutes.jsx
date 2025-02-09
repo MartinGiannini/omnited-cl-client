@@ -10,6 +10,9 @@ const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
 
 const TestNotificaciones = Loadable(lazy(() => import('pages/component-overview/test-notificaciones')));
+const Usuarios = Loadable(lazy(() => import('pages/component-overview/usuarios')));
+const Grupos = Loadable(lazy(() => import('pages/component-overview/grupos')));
+const Colas = Loadable(lazy(() => import('pages/component-overview/colas')));
 const WhatsApp = Loadable(lazy(() => import('pages/component-overview/whatsapp')));
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -43,6 +46,18 @@ const MainRoutes = {
     {
       path: 'shadow',
       element: <Shadow />
+    },
+    {
+      path: 'colas',
+      element: <Colas />
+    },
+    {
+      path: 'grupos',
+      element: <Grupos />
+    },
+    {
+      path: 'usuarios',
+      element: <Usuarios />
     },
     {
       path: 'test-notificaciones',

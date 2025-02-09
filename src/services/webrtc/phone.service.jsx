@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState, useRef } from 'r
 import { useSelector, useDispatch } from 'react-redux'; // Importa useSelector y useDispatch
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { Invitation, Inviter, Referral, Registerer, Session, SessionState, UserAgent } from 'sip.js';
-import { updateConnectionStatus } from '../../store/webrtcSlice'; // Importa la acción
+import { updateUsuarioExtensionStatus } from '../../store/usuarioSlice'; // Importa la acción
 
 
 const WebRTCContext = createContext();
@@ -11,11 +11,8 @@ export const useWebRTC = () => useContext(WebRTCContext);
 
 export const WebRTCProvider = ({ children }) => {
   const dispatch = useDispatch(); // Crea el dispatch para actualizar el estado
-  const authenticationConfig = useSelector((state) => state.storeAuthentication)
-  const webrtcConfig = useSelector((state) => state.storeWebrtc); // Usa useSelector para obtener el estado
-
-  const { uriStore, serverStore, dominioStore, usuarioStore, passwordStore } = webrtcConfig; // Obtén los valores de uri y server del store
-  //const { usuario } = authenticationConfig;
+  const usuarioExtension = useSelector((state) => state.storeUsuario.usuarioExtension);
+  const {extensionUri, extensionServer, extensionDominio, extensionUsername, extensionPassword} = usuarioExtension;
 
   const [session, setSession] = useState(null); // Mantendra el estado de session de la llamada
   const [incomingSession, setIncomingSession] = useState(null);
@@ -27,8 +24,8 @@ export const WebRTCProvider = ({ children }) => {
 
     // Conectar automáticamente al cargar el contexto
     const connect = () => {
-      const uri = uriStore; // Cambia con tu URI
-      const server = serverStore; // Cambia con tu servidor Asterisk
+      const uri = extensionUri;
+      const server = extensionServer;
 
       const agente = new UserAgent({
         uri: UserAgent.makeURI(uri),
@@ -36,8 +33,8 @@ export const WebRTCProvider = ({ children }) => {
           server,
           traceSip: true,
         },
-        authorizationUsername: 'mgiannini',//usuarioStore,
-        authorizationPassword: 'mgiannini',//passwordStore,
+        authorizationUsername: extensionUsername,
+        authorizationPassword: extensionPassword,
         logLevel: 'warn', // Nivel de verbosidad
         sessionDescriptionHandlerFactoryOptions: {
           constraints: {
@@ -65,10 +62,10 @@ export const WebRTCProvider = ({ children }) => {
             console.log("El nuevo estado del User Agent es: ", newState)
             switch (newState) {
               case 'Registered':
-                dispatch(updateConnectionStatus(1)); // Actualiza en Redux
+                dispatch(updateUsuarioExtensionStatus(1)); // Actualiza en Redux
                 break;
               case 'Unregistered':
-                dispatch(updateConnectionStatus(0)); // Actualiza en Redux
+                dispatch(updateUsuarioExtensionStatus(0)); // Actualiza en Redux
                 break;
               default:
                 console.log("NO MAPEADO (agent.start) => El estado es: ", newState)
@@ -90,11 +87,11 @@ export const WebRTCProvider = ({ children }) => {
           return () => clearInterval(keepAliveInterval);
         })
         .catch((error) => console.error('Error al conectar:', error));
-      dispatch(updateConnectionStatus(0)); // Actualiza en Redux si hay un error
+      dispatch(updateUsuarioExtensionStatus(0)); // Actualiza en Redux si hay un error
     };
 
     connect();
-  }, [uriStore, serverStore, usuarioStore, passwordStore, dispatch]); // Vuelve a conectar si cambian uri o server
+  }, [extensionUri, extensionServer, extensionUsername, extensionPassword, dispatch]); // Vuelve a conectar si cambian uri o server
 
   // Manejador para llamadas entrantes
   const handleInvite = (incomingSession) => {
@@ -105,14 +102,14 @@ export const WebRTCProvider = ({ children }) => {
     incomingSession.stateChange.addListener((newState) => {
       switch (newState) {
         case SessionState.Establishing:
-          dispatch(updateConnectionStatus(2)); // Actualiza Redux Llamando
+          dispatch(updateUsuarioExtensionStatus(2)); // Actualiza Redux Llamando
           break;
         case SessionState.Established:
-          dispatch(updateConnectionStatus(3)); // Actualiza Redux Llamada establecida
+          dispatch(updateUsuarioExtensionStatus(3)); // Actualiza Redux Llamada establecida
           configureSession(incomingSession); // Configura la sesión al establecerse la llamda saliente
           break;
         case SessionState.Terminated:
-          dispatch(updateConnectionStatus(1)); // Actualiza Redux Llamada terminada
+          dispatch(updateUsuarioExtensionStatus(1)); // Actualiza Redux Llamada terminada
           break;
         default:
           console.log("NO MAPEADO (Funcion Incoming). El estado de la llamada es: ", newState)
@@ -141,7 +138,7 @@ export const WebRTCProvider = ({ children }) => {
   const startCall = (targetUri) => {
     const userAgente = userAgenteRef.current; // Acceder a userAgente desde la referencia
 
-    const target = UserAgent.makeURI(`sip:${targetUri}@${dominioStore}`);
+    const target = UserAgent.makeURI(`sip:${targetUri}@${extensionDominio}`);
     if (!target) {
       alert('URI de destino no válida');
       return;
@@ -157,14 +154,14 @@ export const WebRTCProvider = ({ children }) => {
           setSession(inviter)
           switch (newState) {
             case SessionState.Establishing:
-              dispatch(updateConnectionStatus(2)); // Actualiza Redux Llamando
+              dispatch(updateUsuarioExtensionStatus(2)); // Actualiza Redux Llamando
               break;
             case SessionState.Established:
-              dispatch(updateConnectionStatus(3)); // Actualiza Redux Llamada establecida
+              dispatch(updateUsuarioExtensionStatus(3)); // Actualiza Redux Llamada establecida
               configureSession(inviter); // Configura la sesión al establecerse la llamda saliente
               break;
             case SessionState.Terminated:
-              dispatch(updateConnectionStatus(1)); // Actualiza Redux Llamada terminada
+              dispatch(updateUsuarioExtensionStatus(1)); // Actualiza Redux Llamada terminada
               break;
             default:
               console.log("NO MAPEADO (Funcion Inviter). El estado de la llamada es: ", newState)
