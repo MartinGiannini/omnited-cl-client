@@ -106,6 +106,7 @@ export default function ComponentUsuarios() {
           idUsuario: usuario.idUsuario,
           usuarioHabilidad: sector?.sectorHabilidad.map((H) => ({
             idHabilidad: H.idHabilidad,
+            habilidadNombre: H.habilidadNombre,
             habilidadValor: (modifiedData.habilidad?.[H.idHabilidad] ?? usuario.usuarioHabilidad.find((uh) => uh.idHabilidad === H.idHabilidad)?.habilidadValor) || 0,
           }))
         };
@@ -115,7 +116,15 @@ export default function ComponentUsuarios() {
         messageType = 'usuarioEstadosWS';
         fullData = {
           idUsuario: usuario.idUsuario,
-          usuarioEstado: (modifiedData.estados || usuario.usuarioEstado.map((e) => e.idEstado)).map((idEstado) => ({ idEstado, }))
+          usuarioEstado: (modifiedData.estados || usuario.usuarioEstado.map((e) => e.idEstado)).map((idEstado) => {
+            const estadoObj = sector?.sectorEstado.find((estado) => estado.idEstado === idEstado);
+            return {
+              idEstado,
+              estadoNombre: estadoObj?.estadoNombre || '',
+              estadoProductivo: estadoObj?.estadoProductivo || false,
+              estadoDedicadoUsuarioFinal: estadoObj?.estadoDedicadoUsuarioFinal || false
+            };
+          })
         };
         break;
 
@@ -140,21 +149,27 @@ export default function ComponentUsuarios() {
         let permisosUsuario;
 
         if (storeUsuario.usuarioPerfil.idPerfil === 1) {
-          permisos = storePermisos.permisosSupervision;
+          permisos = storePermisos.permisoSupervision;
           permisosUsuario = usuario.usuarioPermisoSupervision;
           messageType = 'permisosSupervisionWS';
           fullData = {
             idUsuario: usuario.idUsuario,
-            usuarioPermisoSupervision: (modifiedData.permisos || permisosUsuario.map((p) => p.idPermiso)).map((idPermiso) => ({idPermiso,}))
-          }
+            usuarioPermisoSupervision: (modifiedData.permisos || permisosUsuario.map((p) => p.idPermiso)).map((idPermiso) => {
+              const permisoObj = permisos.find((permiso) => permiso.idPermiso === idPermiso);
+              return { idPermiso, permisoNombre: permisoObj?.permisoNombre || '' };
+            })
+          };
         } else {
-          permisos = storePermisos.permisosOperacion;
+          permisos = storePermisos.permisoOperacion;
           permisosUsuario = usuario.usuarioPermisoOperacion;
           messageType = 'permisosOperacionWS';
           fullData = {
             idUsuario: usuario.idUsuario,
-            usuarioPermisoOperacion: (modifiedData.permisos || permisosUsuario.map((p) => p.idPermiso)).map((idPermiso) => ({idPermiso,}))
-          }
+            usuarioPermisoOperacion: (modifiedData.permisos || permisosUsuario.map((p) => p.idPermiso)).map((idPermiso) => {
+              const permisoObj = permisos.find((permiso) => permiso.idPermiso === idPermiso);
+              return { idPermiso, permisoNombre: permisoObj?.permisoNombre || '' };
+            })
+          };
         }
         break;
 

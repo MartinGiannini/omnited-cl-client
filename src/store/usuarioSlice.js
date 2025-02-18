@@ -51,9 +51,27 @@ const usuarioSlice = createSlice({
         },
         updateUsuarioEstadoActual: (state, action) => {
             state.usuarioEstadoActual = action.payload;
+        },
+        updateUsuarioHabilidad: (state, action) => {
+            const { idUsuario, usuarioHabilidad } = action.payload;
+            if (state.idUsuario && idUsuario && state.idUsuario === idUsuario) {
+                state.usuarioHabilidad = usuarioHabilidad;
+            }
+        },
+        updateUsuarioEstado: (state, action) => {
+            const { idUsuario, usuarioEstado } = action.payload;
+            if (state.idUsuario && idUsuario && state.idUsuario === idUsuario) {
+                state.usuarioEstado = usuarioEstado;
+            }
+        },
+        updateUsuarioPermisoOperacion: (state, action) => {
+            const { idUsuario, usuarioPermisoOperacion } = action.payload;
+            if (state.idUsuario && idUsuario && state.idUsuario === idUsuario) {
+                state.usuarioPermisoOperacion = usuarioPermisoOperacion;
+            }
         }
     }
 });
 
-export const { updateUsuarioData, updateUsuarioExtensionStatus, updateUsuarioEstadoActual } = usuarioSlice.actions;
+export const { updateUsuarioData, updateUsuarioExtensionStatus, updateUsuarioEstadoActual, updateUsuarioHabilidad, updateUsuarioEstado, updateUsuarioPermisoOperacion } = usuarioSlice.actions;
 export default usuarioSlice.reducer;

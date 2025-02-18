@@ -115,9 +115,12 @@ export default function SectoresGruposSelect() {
         messageType = 'grupoHabilidadesWS';
         fullData = {
           idGrupoHabilidad: selectedGrupoHabilidad,
-          grupoHabilidadNombre: nuevoNombreGrupo,
+          grupoHabilidadNombre: selectedGrupoHabilidad === '1100011'
+            ? nuevoNombreGrupo
+            : (nuevoNombreGrupo || grupoHabilidadDetails?.grupoHabilidadNombre),
           habilidad: sector?.sectorHabilidad.map((H) => ({
             idHabilidad: H.idHabilidad,
+            habilidadNombre: H.habilidadNombre,
             // Si se modificó el valor se usa ese; en caso de grupo existente se utiliza el valor del grupo,
             // y en caso de "agregar" se deja en 0.
             habilidadValor: modifiedData.habilidad?.[H.idHabilidad] !== undefined
@@ -133,13 +136,24 @@ export default function SectoresGruposSelect() {
         messageType = 'grupoEstadosWS';
         fullData = {
           idGrupoEstado: selectedGrupoEstado,
-          grupoEstadoNombre: nuevoNombreGrupo,
+          grupoEstadoNombre: selectedGrupoEstado === '1100011'
+            ? nuevoNombreGrupo
+            : (nuevoNombreGrupo || grupoEstadoDetails?.grupoEstadoNombre),
           estado: (modifiedData.estados ||
             (selectedGrupoEstado !== 'agregar' && grupoEstadoDetails?.estado
               ? grupoEstadoDetails.estado.map((e) => e.idEstado)
               : [1] // Por defecto, siempre se incluye el estado "Activo" (id 1)
             )
-          ).map((idEstado) => ({ idEstado }))
+          ).map((idEstado) => {
+            const estadoObj = grupoEstadoDetails?.estado?.find((e) => e.idEstado === idEstado)
+              || sector?.sectorEstado.find((e) => e.idEstado === idEstado);
+            return {
+              idEstado,
+              estadoNombre: estadoObj?.estadoNombre || '',
+              estadoProductivo: estadoObj?.estadoProductivo || false,
+              estadoDedicadoUsuarioFinal: estadoObj?.estadoDedicadoUsuarioFinal || false,
+            };
+          })
         };
         break;
 
@@ -150,7 +164,7 @@ export default function SectoresGruposSelect() {
     sendMessageThroughWebSocket(messageType, {
       ingresoDatos: {
         idSector: selectedSector,
-        seleccionados: fullData,
+        grupoDatos: fullData,
       },
     });
 

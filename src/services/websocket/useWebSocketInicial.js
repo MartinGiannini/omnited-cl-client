@@ -33,23 +33,26 @@ export const useWebSocketInicial = () => {
      * Esto debería pasar solo cuando el usuario tiene perfil Administrador o Supervisor
      * sectores -> es lo que está esperando el back para identificar "usuarioSector"
      */
+    
     useEffect(() => {
         if (wbsConnStatus === 2) {
+
             sendMessageThroughWebSocket('usuariologinsectoresWS', {
-                sectoresDatos: {
-                    usuario: casUsuario,
+                ingresoDatos: {
+                    idUsuario: idUsuario,
                     sectores: usuarioSector
                 },
             });
+            
             sendMessageThroughWebSocket('usuariologingruposWS', {
-                sectoresDatos: {
-                    usuario: casUsuario,
+                ingresoDatos: {
+                    idUsuario: idUsuario,
                     sectores: usuarioSector
                 },
             });
             setUserDataLoaded(true);
         }
     }, [idUsuario]);
-
+    
     return userDataLoaded;
 };
