@@ -20,28 +20,28 @@ const operacion = {
       id: 'WhatsApp',
       title: 'WhatsApp',
       type: 'item',
-      url: '/whatsapp',
+      url: '/whatsapp_opera',
       icon: icons.WhatsApp
     },
     {
       id: 'Signal',
       title: 'Signal',
       type: 'item',
-      url: '/Signal',
+      url: '/signal_opera',
       icon: icons.SignalWifi0Bar
     },
     {
       id: 'Telefonia',
       title: 'Telefonia',
       type: 'item',
-      url: '/Phone',
+      url: '/phone_opera',
       icon: icons.Phone
     },
     {
       id: 'Chat',
       title: 'Chat',
       type: 'item',
-      url: '/Chat',
+      url: '/chat_opera',
       icon: icons.ChatBubble
     },
     /*

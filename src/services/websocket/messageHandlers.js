@@ -3,18 +3,24 @@ import {
     updateUsuarioHabilidad,
     updateUsuarioEstado,
     updateUsuarioEstadoActual,
-    updateUsuarioPermisoOperacion
+    updateUsuarioPermisoOperacion,
+    updateUsuarioPermisoSupervision
 } from '../../store/usuarioSlice';
 import {
     updateSectorData,
     updateSectorUsuarioHabilidad,
     updateSectorUsuarioEstado,
     updateSectorUsuarioPermisoOperacion,
-    updateSectorCola,
+    updateSectorUsuarioPermisoSupervision,
     updateSectorGrupoEstado,
     updateSectorGrupoHabilidad,
+    updateSector,
+    updateSectorCola,
+    updateSectorUsuario,
     addSectorGrupoHabilidad,
-    addSectorGrupoEstado
+    addSectorGrupoEstado,
+    addSectorCola,
+    addSectorUsuario
 } from '../../store/sectorSlice';
 import {
     updateGrupoData,
@@ -34,66 +40,94 @@ export const messageHandlers = {
     },
 
     usuariologinDB: (dispatch, message) => {
-        //const parsedMessage = JSON.parse(message);
         dispatch(updateUsuarioData(message));
         dispatch(updateUsuarioEstadoActual(1));
     },
 
     usuariologinsectoresDB: (dispatch, message) => {
-        //const parsedMessage = JSON.parse(message);
         dispatch(updateSectorData(message));
     },
 
     usuariologingruposDB: (dispatch, message) => {
-        //const parsedMessage = JSON.parse(message);
         dispatch(updateGrupoData(message));
     },
 
     usuariologinpermisosDB: (dispatch, message) => {
-        //const parsedMessage = JSON.parse(message);
         dispatch(updatePermisosData(message));
     },
 
     usuariologinestrategiasDB: (dispatch, message) => {
-        //const parsedMessage = JSON.parse(message);
         dispatch(updateEstrategiasData(message));
     },
 
-    usuarioHabilidadesDB: (dispatch, message) => {
-        dispatch(updateUsuarioHabilidad(message));
+    usuarioHabilidadesSectorDB: (dispatch, message) => {
         dispatch(updateSectorUsuarioHabilidad(message));
     },
 
-    usuarioEstadosDB: (dispatch, message) => {
-        dispatch(updateUsuarioEstado(message));
+    usuarioHabilidadesUsuarioDB: (dispatch, message) => {
+        dispatch(updateUsuarioHabilidad(message));
+    },
+
+    usuarioEstadosSectorDB: (dispatch, message) => {
         dispatch(updateSectorUsuarioEstado(message));
     },
 
-    usuarioPermisosOperacionDB: (dispatch, message) => {
-        dispatch(updateUsuarioPermisoOperacion(message));
+    usuarioEstadosUsuarioDB: (dispatch, message) => {
+        dispatch(updateUsuarioEstado(message));
+    },
+
+    usuarioPermisosOperacionSectorDB: (dispatch, message) => {
         dispatch(updateSectorUsuarioPermisoOperacion(message));
     },
 
-    sectorColaDB: (dispatch, message) => {
+    usuarioPermisosOperacionUsuarioDB: (dispatch, message) => {
+        dispatch(updateUsuarioPermisoOperacion(message));
+    },
+
+    usuarioPermisosSupervisionSectorDB: (dispatch, message) => {
+        dispatch(updateSectorUsuarioPermisoSupervision(message));
+    },
+
+    usuarioPermisosSupervisionUsuarioDB: (dispatch, message) => {
+        dispatch(updateUsuarioPermisoSupervision(message));
+    },
+
+    sectorActualizarDB: (dispatch, message) => {
+        dispatch(updateSector(message));
+    },
+
+    colaActualizarDB: (dispatch, message) => {
         dispatch(updateSectorCola(message));
     },
 
-    actualizaGrupoEstadosDB: (dispatch, message) => {
+    colaAgregarDB: (dispatch, message) => {
+        dispatch(addSectorCola(message));
+    },
+
+    usuarioActualizarDB: (dispatch, message) => {
+        dispatch(updateSectorUsuario(message));
+    },
+
+    usuarioAgregarDB: (dispatch, message) => {
+        dispatch(addSectorUsuario(message));
+    },
+
+    grupoEstadosModificaDB: (dispatch, message) => {
         dispatch(updateSectorGrupoEstado(message));
         dispatch(updateGrupoEstados(message));
     },
 
-    agregaGrupoEstadosDB: (dispatch, message) => {
+    grupoEstadosAgregaDB: (dispatch, message) => {
         dispatch(addSectorGrupoEstado(message));
         dispatch(addGrupoEstados(message));
     },
 
-    actualizaGrupoHabilidadesDB: (dispatch, message) => {
+    grupoHabilidadesModificaDB: (dispatch, message) => {
         dispatch(updateSectorGrupoHabilidad(message));
         dispatch(updateGrupoHabilidades(message));
     },
 
-    agregaGrupoHabilidadesDB: (dispatch, message) => {
+    grupoHabilidadesAgregaDB: (dispatch, message) => {
         dispatch(addSectorGrupoHabilidad(message));
         dispatch(addGrupoHabilidades(message));
     },

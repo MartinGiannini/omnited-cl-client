@@ -39,35 +39,21 @@ const supervision = {
       id: 'Usuarios',
       title: 'Usuarios',
       type: 'item',
-      url: '/usuarios',
+      url: '/usuarios_super',
       icon: icons.UserAddOutlined
     },
     {
       id: 'Colas',
       title: 'Colas',
       type: 'item',
-      url: '/colas',
+      url: '/colas_super',
       icon: icons.LayoutFilled
-    },
-    {
-      id: 'Habilidades',
-      title: 'Habilidades',
-      type: 'item',
-      url: '/habilidades',
-      icon: icons.CaretUpFilled
-    },
-    {
-      id: 'Estados',
-      title: 'Estados',
-      type: 'item',
-      url: '/estados',
-      icon: icons.StarFilled
     },
     {
       id: 'Grupos',
       title: 'Grupos',
       type: 'item',
-      url: '/grupos',
+      url: '/grupos_super',
       icon: icons.GroupOutlined
     },
     {

@@ -17,7 +17,7 @@ export default function Navigation() {
   const usuarioPermisoAdministracion = useSelector((state) => state.storeUsuario.usuarioPermisoAdministracion);
   const usuarioPermisoSupervision = useSelector((state) => state.storeUsuario.usuarioPermisoSupervision);
   const usuarioPermisoOperacion = useSelector((state) => state.storeUsuario.usuarioPermisoOperacion);
-  
+
   // Extraer los IDs permitidos de permisosAdministracion
   const permisosAdministracionIds = usuarioPermisoAdministracion.map((permiso) => permiso.permisoNombre);
 

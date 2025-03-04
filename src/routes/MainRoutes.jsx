@@ -10,10 +10,12 @@ const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
 
 const TestNotificaciones = Loadable(lazy(() => import('pages/component-overview/test-notificaciones')));
-const Usuarios = Loadable(lazy(() => import('pages/component-overview/usuarios')));
-const Grupos = Loadable(lazy(() => import('pages/component-overview/grupos')));
-const Colas = Loadable(lazy(() => import('pages/component-overview/colas')));
-const WhatsApp = Loadable(lazy(() => import('pages/component-overview/whatsapp')));
+const UsuariosSuper = Loadable(lazy(() => import('pages/component-overview/usuarios_super')));
+const UsuariosAdmin = Loadable(lazy(() => import('pages/component-overview/usuarios_admin')));
+const Grupos = Loadable(lazy(() => import('pages/component-overview/grupos_super')));
+const ColasSuper = Loadable(lazy(() => import('pages/component-overview/colas_super')));
+const ColasAdmin = Loadable(lazy(() => import('pages/component-overview/colas_admin')));
+const WhatsApp = Loadable(lazy(() => import('pages/component-overview/whatsapp_opera')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -40,7 +42,7 @@ const MainRoutes = {
       ]
     },
     {
-      path: 'whatsapp',
+      path: 'whatsapp_opera',
       element: <WhatsApp />
     },
     {
@@ -48,16 +50,32 @@ const MainRoutes = {
       element: <Shadow />
     },
     {
-      path: 'colas',
-      element: <Colas />
+      path: 'colas_admin',
+      element: <ColasAdmin />
     },
     {
-      path: 'grupos',
+      path: 'colas_super',
+      element: <ColasSuper />
+    },
+    {
+      path: 'usuarios_admin',
+      element: <UsuariosAdmin />
+    },
+    {
+      path: 'usuarios_super',
+      element: <UsuariosSuper />
+    },
+    {
+      path: 'habilidades_admin',
+      element: <ColasSuper />
+    },
+    {
+      path: 'estados_admin',
+      element: <ColasAdmin />
+    },
+    {
+      path: 'grupos_super',
       element: <Grupos />
-    },
-    {
-      path: 'usuarios',
-      element: <Usuarios />
     },
     {
       path: 'test-notificaciones',

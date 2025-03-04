@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   MenuItem,
   Select,
-  Slider,
   FormControl,
   InputLabel,
   Typography,
@@ -16,7 +15,7 @@ import {
 import { sendMessageThroughWebSocket } from '../../services/backend/Conexion';
 import { showDialog } from '../../store/dialogSlice';
 
-export default function ComponentColas() {
+export default function ColasSuper() {
   const storeSector = useSelector((state) => state.storeSector);
   const storeEstrategias = useSelector((state) => state.storeEstrategias);
 
@@ -78,7 +77,7 @@ export default function ComponentColas() {
 
     const sector = getSectorById(selectedSector);
     const cola = sector?.sectorCola.find((c) => c.idCola === parseInt(selectedCola, 10));
-    let messageType = 'modificaColaWS';
+    let messageType = 'colaadminWS';
 
     if (!sector || !cola) {
       console.error('Datos incompletos para enviar');
@@ -86,8 +85,6 @@ export default function ComponentColas() {
     }
 
     const fullData = {
-      //sectorId: sector.id,
-      //sectorNombre: sector.nombre,
       idCola: cola.idCola,
       colaNombre: cola.colaNombre,
       colaEstrategia: getEstrategiaById(modifiedData.colaEstrategia || cola.colaEstrategia.idEstrategia),

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     idUsuario: null,
+    usuarioPerfil: '',
     usuarioEstadoActual: '',
     usuarioNombre: '',
     usuarioApellido: '',
@@ -69,9 +70,23 @@ const usuarioSlice = createSlice({
             if (state.idUsuario && idUsuario && state.idUsuario === idUsuario) {
                 state.usuarioPermisoOperacion = usuarioPermisoOperacion;
             }
+        },
+        updateUsuarioPermisoSupervision: (state, action) => {
+            const { idUsuario, usuarioPermisoSupervision } = action.payload;
+            if (state.idUsuario && idUsuario && state.idUsuario === idUsuario) {
+                state.usuarioPermisoSupervision = usuarioPermisoSupervision;
+            }
         }
     }
 });
 
-export const { updateUsuarioData, updateUsuarioExtensionStatus, updateUsuarioEstadoActual, updateUsuarioHabilidad, updateUsuarioEstado, updateUsuarioPermisoOperacion } = usuarioSlice.actions;
+export const {
+    updateUsuarioData,
+    updateUsuarioExtensionStatus,
+    updateUsuarioEstadoActual,
+    updateUsuarioHabilidad,
+    updateUsuarioEstado,
+    updateUsuarioPermisoOperacion,
+    updateUsuarioPermisoSupervision
+} = usuarioSlice.actions;
 export default usuarioSlice.reducer;

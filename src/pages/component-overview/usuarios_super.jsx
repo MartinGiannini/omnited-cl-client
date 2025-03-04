@@ -23,7 +23,7 @@ import Container from '@mui/material/Container';
 import { CheckCircle, Cancel } from '@mui/icons-material';
 import { sendMessageThroughWebSocket } from '../../services/backend/Conexion';
 
-export default function ComponentUsuarios() {
+export default function UsuariosSuper() {
   const storeSector = useSelector((state) => state.storeSector);
   const storeUsuario = useSelector((state) => state.storeUsuario);
   const storePermisos = useSelector((state) => state.storePermisos);
@@ -151,7 +151,7 @@ export default function ComponentUsuarios() {
         if (storeUsuario.usuarioPerfil.idPerfil === 1) {
           permisos = storePermisos.permisoSupervision;
           permisosUsuario = usuario.usuarioPermisoSupervision;
-          messageType = 'permisosSupervisionWS';
+          messageType = 'usuarioPermisosSupervisionWS';
           fullData = {
             idUsuario: usuario.idUsuario,
             usuarioPermisoSupervision: (modifiedData.permisos || permisosUsuario.map((p) => p.idPermiso)).map((idPermiso) => {
@@ -162,7 +162,7 @@ export default function ComponentUsuarios() {
         } else {
           permisos = storePermisos.permisoOperacion;
           permisosUsuario = usuario.usuarioPermisoOperacion;
-          messageType = 'permisosOperacionWS';
+          messageType = 'usuarioPermisosOperacionWS';
           fullData = {
             idUsuario: usuario.idUsuario,
             usuarioPermisoOperacion: (modifiedData.permisos || permisosUsuario.map((p) => p.idPermiso)).map((idPermiso) => {
@@ -180,6 +180,7 @@ export default function ComponentUsuarios() {
     sendMessageThroughWebSocket(messageType, {
       ingresoDatos: {
         idSector: selectedSector,
+        sectores: [],
         usuario: fullData,
       },
     });

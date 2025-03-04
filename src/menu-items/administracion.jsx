@@ -1,10 +1,12 @@
 // assets
-import { LoginOutlined, ProfileOutlined } from '@ant-design/icons';
+import { LoginOutlined, ProfileOutlined, CaretUpFilled, StarFilled } from '@ant-design/icons';
 
 // icons
 const icons = {
   LoginOutlined,
-  ProfileOutlined
+  ProfileOutlined,
+  CaretUpFilled,
+  StarFilled
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
@@ -18,15 +20,29 @@ const administracion = {
       id: 'Usuarios',
       title: 'Usuarios',
       type: 'item',
-      url: '/usuariosAdmin',
+      url: '/usuarios_admin',
       icon: icons.LoginOutlined
     },
     {
       id: 'Colas',
       title: 'Colas',
       type: 'item',
-      url: '/colasAdmin',
+      url: '/colas_admin',
       icon: icons.ProfileOutlined
+    },
+    {
+      id: 'Estados',
+      title: 'Estados',
+      type: 'item',
+      url: '/estados_admin',
+      icon: icons.StarFilled
+    },
+    {
+      id: 'Habilidades',
+      title: 'Habilidades',
+      type: 'item',
+      url: '/habilidades_admin',
+      icon: icons.CaretUpFilled
     }
   ]
 };
