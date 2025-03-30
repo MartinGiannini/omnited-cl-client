@@ -13,6 +13,8 @@ import grupoSlice from 'store/grupoSlice';
 import permisosSlice from 'store/permisosSlice';
 import dialogSlice from 'store/dialogSlice';
 import estrategiasSlice from 'store/estrategiasSlice';
+import realTimeSlice from 'store/realTimeSlice';
+import localSlice from 'store/localSlice';
 
 import loggerMiddleware from './middleware/loggerMiddleware';
 
@@ -31,6 +33,8 @@ export const store = configureStore({
     storePermisos: permisosSlice,
     storeDialog: dialogSlice,
     storeEstrategias: estrategiasSlice,
+    storeRealTime: realTimeSlice,
+    storeLocal: localSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
 });

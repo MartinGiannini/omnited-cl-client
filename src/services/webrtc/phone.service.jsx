@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState, useRef } from 'r
 import { useSelector, useDispatch } from 'react-redux'; // Importa useSelector y useDispatch
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { Invitation, Inviter, Referral, Registerer, Session, SessionState, UserAgent } from 'sip.js';
-import { updateUsuarioExtensionStatus } from '../../store/usuarioSlice'; // Importa la acción
+import { updateExtensionConnectionStatus } from '../../store/localSlice'; // Importa la acción
 
 
 const WebRTCContext = createContext();
@@ -62,10 +62,10 @@ export const WebRTCProvider = ({ children }) => {
             console.log("El nuevo estado del User Agent es: ", newState)
             switch (newState) {
               case 'Registered':
-                dispatch(updateUsuarioExtensionStatus(1)); // Actualiza en Redux
+                dispatch(updateExtensionConnectionStatus(1)); // Actualiza en Redux
                 break;
               case 'Unregistered':
-                dispatch(updateUsuarioExtensionStatus(0)); // Actualiza en Redux
+                dispatch(updateExtensionConnectionStatus(0)); // Actualiza en Redux
                 break;
               default:
                 console.log("NO MAPEADO (agent.start) => El estado es: ", newState)
@@ -87,7 +87,7 @@ export const WebRTCProvider = ({ children }) => {
           return () => clearInterval(keepAliveInterval);
         })
         .catch((error) => console.error('Error al conectar:', error));
-      dispatch(updateUsuarioExtensionStatus(0)); // Actualiza en Redux si hay un error
+      dispatch(updateExtensionConnectionStatus(0)); // Actualiza en Redux si hay un error
     };
 
     connect();
@@ -102,14 +102,14 @@ export const WebRTCProvider = ({ children }) => {
     incomingSession.stateChange.addListener((newState) => {
       switch (newState) {
         case SessionState.Establishing:
-          dispatch(updateUsuarioExtensionStatus(2)); // Actualiza Redux Llamando
+          dispatch(updateExtensionConnectionStatus(2)); // Actualiza Redux Llamando
           break;
         case SessionState.Established:
-          dispatch(updateUsuarioExtensionStatus(3)); // Actualiza Redux Llamada establecida
+          dispatch(updateExtensionConnectionStatus(3)); // Actualiza Redux Llamada establecida
           configureSession(incomingSession); // Configura la sesión al establecerse la llamda saliente
           break;
         case SessionState.Terminated:
-          dispatch(updateUsuarioExtensionStatus(1)); // Actualiza Redux Llamada terminada
+          dispatch(updateExtensionConnectionStatus(1)); // Actualiza Redux Llamada terminada
           break;
         default:
           console.log("NO MAPEADO (Funcion Incoming). El estado de la llamada es: ", newState)
@@ -154,14 +154,14 @@ export const WebRTCProvider = ({ children }) => {
           setSession(inviter)
           switch (newState) {
             case SessionState.Establishing:
-              dispatch(updateUsuarioExtensionStatus(2)); // Actualiza Redux Llamando
+              dispatch(updateExtensionConnectionStatus(2)); // Actualiza Redux Llamando
               break;
             case SessionState.Established:
-              dispatch(updateUsuarioExtensionStatus(3)); // Actualiza Redux Llamada establecida
+              dispatch(updateExtensionConnectionStatus(3)); // Actualiza Redux Llamada establecida
               configureSession(inviter); // Configura la sesión al establecerse la llamda saliente
               break;
             case SessionState.Terminated:
-              dispatch(updateUsuarioExtensionStatus(1)); // Actualiza Redux Llamada terminada
+              dispatch(updateExtensionConnectionStatus(1)); // Actualiza Redux Llamada terminada
               break;
             default:
               console.log("NO MAPEADO (Funcion Inviter). El estado de la llamada es: ", newState)

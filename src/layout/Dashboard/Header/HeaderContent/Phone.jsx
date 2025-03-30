@@ -17,7 +17,7 @@ import { useWebRTC } from '../../../../services/webrtc/phone.service';
 export default function Phone() {
   const theme = useTheme();
   
-  const usuarioExtensionStatus = useSelector((state) => state.storeUsuario.usuarioExtension.connectionStatus); // Usa useSelector para obtener el estado
+  const extensionConnectionStatus = useSelector((state) => state.storeLocal.extensionConnectionStatus); // Usa useSelector para obtener el estado
   
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,7 +28,7 @@ export default function Phone() {
 
   // Cambiar el color y el relleno según el estado de conexión
   const getIconStyles = () => {
-    switch (usuarioExtensionStatus) {
+    switch (extensionConnectionStatus) {
       case 0: // Desconectado
         return { color: 'grey', bgcolor: 'transparent' };
       case 1: // Conectado
@@ -72,8 +72,8 @@ export default function Phone() {
   };
 
   const handleStart = () => {
-    console.log("El estado de la conexión es: ",usuarioExtensionStatus)
-    if (usuarioExtensionStatus !== 1) {
+    console.log("El estado de la conexión es: ",extensionConnectionStatus)
+    if (extensionConnectionStatus !== 1) {
       alert('No estás conectado a WebRTC');
       return;
     }
@@ -85,7 +85,7 @@ export default function Phone() {
   };
 
   // Determinar el ícono basado en el estado de conexión
-  const redButtonIcon = usuarioExtensionStatus === 1 ? <BackspaceOutlined /> : <Hangup />;
+  const redButtonIcon = extensionConnectionStatus === 1 ? <BackspaceOutlined /> : <Hangup />;
 
   // Agregar manejo de teclas para la marcación
   useEffect(() => {

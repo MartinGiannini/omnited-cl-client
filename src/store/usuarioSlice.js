@@ -3,14 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     idUsuario: null,
     usuarioPerfil: '',
-    usuarioEstadoActual: '',
     usuarioNombre: '',
     usuarioApellido: '',
     usuarioUsuario: '',
     usuarioCorreo: '',
-    usuarioExtension: {
-        connectionStatus: 0 // Desconectado
-    },
+    usuarioExtension: [],
     usuarioEstado: [],
     usuarioHabilidad: [],
     usuarioPermisoOperacion: [],
@@ -18,17 +15,6 @@ const initialState = {
     usuarioPermisoAdministracion: [],
     usuarioSector: []
 };
-
-/*
-connectionStatus:
-
-0 => Desconectado
-1 => Conectado
-2 => Llamada Ringueando
-3 => Llamada Establecida
-4 => Llamada Holdeada
-5 => ¿?
-*/
 
 const usuarioSlice = createSlice({
     name: 'user',
@@ -38,20 +24,8 @@ const usuarioSlice = createSlice({
             const payload = action.payload;
             return {
                 ...state,
-                ...payload,
-                usuarioExtension: payload.usuarioExtension
-                    ? { ...state.usuarioExtension, ...payload.usuarioExtension }
-                    : state.usuarioExtension,
-                usuarioEstadoActual: action.payload.hasOwnProperty('usuarioEstadoActual')
-                    ? action.payload.usuarioEstadoActual
-                    : state.usuarioEstadoActual
+                ...payload
             };
-        },
-        updateUsuarioExtensionStatus: (state, action) => {
-            state.usuarioExtension.connectionStatus = action.payload;
-        },
-        updateUsuarioEstadoActual: (state, action) => {
-            state.usuarioEstadoActual = action.payload;
         },
         updateUsuarioHabilidad: (state, action) => {
             const { idUsuario, usuarioHabilidad } = action.payload;
@@ -82,8 +56,6 @@ const usuarioSlice = createSlice({
 
 export const {
     updateUsuarioData,
-    updateUsuarioExtensionStatus,
-    updateUsuarioEstadoActual,
     updateUsuarioHabilidad,
     updateUsuarioEstado,
     updateUsuarioPermisoOperacion,

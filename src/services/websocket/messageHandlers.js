@@ -2,7 +2,6 @@ import {
     updateUsuarioData,
     updateUsuarioHabilidad,
     updateUsuarioEstado,
-    updateUsuarioEstadoActual,
     updateUsuarioPermisoOperacion,
     updateUsuarioPermisoSupervision
 } from '../../store/usuarioSlice';
@@ -32,6 +31,10 @@ import {
 import { updatePermisosData } from '../../store/permisosSlice';
 import { showDialog } from '../../store/dialogSlice';
 import { updateEstrategiasData } from '../../store/estrategiasSlice';
+import { addOrUpdateOperador } from '../../store/realTimeSlice';
+import { 
+    updateUsuarioEstadoActual
+} from '../../store/localSlice';
 
 export const messageHandlers = {
 
@@ -140,6 +143,10 @@ export const messageHandlers = {
                 message: message.message || 'Mensaje por defecto'
             })
         );
+    },
+
+    operadorRealTimeLIST: (dispatch, message) => {
+        dispatch(addOrUpdateOperador(message));
     },
 
     /*

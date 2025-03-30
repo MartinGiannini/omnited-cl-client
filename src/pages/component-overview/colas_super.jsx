@@ -244,7 +244,7 @@ export default function ColasSuper() {
                   }))
                 }
               >
-                <MenuItem value="">Ninguna</MenuItem>
+                <MenuItem value="0">Ninguna</MenuItem>
                 {sector.sectorCola
                   .filter((C) => C.idCola !== cola.idCola) // Excluye la cola seleccionada
                   .map((C) => (

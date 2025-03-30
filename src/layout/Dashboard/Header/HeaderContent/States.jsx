@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,18 +8,26 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 
-import { updateUsuarioEstadoActual } from '../../../../store/usuarioSlice';
+import { sendMessageThroughWebSocket } from '../../../../services/backend/Conexion';
 
 // ==============================|| HEADER CONTENT - SELECT ||============================== //
 
 export default function States() {
-  const estadoActual = useSelector((state) => state.storeUsuario.usuarioEstadoActual);
-  const usuarioEstados = useSelector((state) => state.storeUsuario.usuarioEstado);
-  const selectedEstado = usuarioEstados.find((E) => E.idEstado === estadoActual);
-  const dispatch = useDispatch();
+  const usuarioStore = useSelector((state) => state.storeUsuario);
+  const localStore = useSelector((state) => state.storeLocal);
+  const [estadoActual, setEstadoActual] = useState(localStore.usuarioEstadoActual);
+  const selectedEstado = usuarioStore.usuarioEstado.find((E) => E.idEstado === estadoActual);
 
   const handleChange = (event) => {
-    dispatch(updateUsuarioEstadoActual(parseInt(event.target.value)));
+    const newId = event.target.value;
+    const newEstado = usuarioStore.usuarioEstado.find((e) => e.idEstado === newId);
+    sendMessageThroughWebSocket('usuarioEventoWS', {
+      cambioEstado: {
+        usuario: usuarioStore,
+        estado: newEstado,
+      },
+    });
+    setEstadoActual(newId);
   };
 
   let comboColor = 'grey';
@@ -55,7 +64,7 @@ export default function States() {
       >
         <InputLabel id="estado-select-label">Estado</InputLabel>
         <Select labelId="estado-select-label" id="estado-select" value={estadoActual} onChange={handleChange} label="Estado">
-          {usuarioEstados
+          {usuarioStore.usuarioEstado
             .slice()
             .sort((a, b) => a.idEstado - b.idEstado)
             .map((estado) => (

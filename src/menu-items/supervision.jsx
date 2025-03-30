@@ -57,10 +57,10 @@ const supervision = {
       icon: icons.GroupOutlined
     },
     {
-      id: 'util-typography',
-      title: 'Typography',
+      id: 'Panel Monitoria',
+      title: 'Panel Monitoria',
       type: 'item',
-      url: '/typography',
+      url: '/panel_monitoria',
       icon: icons.FontSizeOutlined
     },
     {

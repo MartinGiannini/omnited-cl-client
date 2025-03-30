@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -31,6 +32,10 @@ import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import avatar1 from 'assets/images/users/avatar-1.png';
 
+import casSessionService from '../../../../../services/session/authentication/casSessionService';
+import useCasService from '../../../../../services/cas/cas.service';
+import { casLogoutSuccess } from '../../../../../store/casSlice';
+
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
   return (
@@ -51,8 +56,11 @@ function a11yProps(index) {
 
 export default function Profile() {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const usuario = useSelector((state) => state.storeCas.casUsuario);
   const rol = useSelector((state) => state.storeCas.casRol);
+  const { clearCasAuthentication } = casSessionService();
+  const { logout } = useCasService();
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -73,6 +81,18 @@ export default function Profile() {
     setValue(newValue);
   };
 
+  const handleLogOutClick = () => {
+    logout()
+      .then((response) => {
+        clearCasAuthentication();
+        dispatch(casLogoutSuccess());
+        window.location.href = response;
+      })
+      .catch((err) => {
+        console.error('ERROR: ', err);
+      });
+  }
+
   const iconBackColorOpen = 'grey.100';
 
   return (
@@ -89,7 +109,7 @@ export default function Profile() {
       >
         <Stack direction="row" spacing={1.25} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} size="sm" />
-          <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>{ usuario }</Typography>
+          <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>{usuario}</Typography>
         </Stack>
       </ButtonBase>
       <Popper
@@ -121,14 +141,14 @@ export default function Profile() {
                         <Stack direction="row" spacing={1.25} alignItems="center">
                           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                           <Stack>
-                            <Typography variant="h6">{ usuario }</Typography>
-                            <Typography variant="body2" color="text.secondary">{ rol }</Typography>
+                            <Typography variant="h6">{usuario}</Typography>
+                            <Typography variant="body2" color="text.secondary">{rol}</Typography>
                           </Stack>
                         </Stack>
                       </Grid>
                       <Grid item>
                         <Tooltip title="Salir">
-                          <IconButton size="large" sx={{ color: 'text.primary' }}>
+                          <IconButton size="large" sx={{ color: 'text.primary' }} onClick={handleLogOutClick}>
                             <LogoutOutlined />
                           </IconButton>
                         </Tooltip>
@@ -146,7 +166,9 @@ export default function Profile() {
                           alignItems: 'center',
                           textTransform: 'capitalize'
                         }}
-                        icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />} label="Profile" {...a11yProps(0)}
+                        icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
+                        label="Perfil"
+                        {...a11yProps(0)}
                       />
                       <Tab
                         sx={{
@@ -157,7 +179,7 @@ export default function Profile() {
                           textTransform: 'capitalize'
                         }}
                         icon={<SettingOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                        label="Setting"
+                        label="Configuración"
                         {...a11yProps(1)}
                       />
                     </Tabs>

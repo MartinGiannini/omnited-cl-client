@@ -248,7 +248,9 @@ export default function UsuariosAdmin() {
             <InputLabel>Usuarios</InputLabel>
             <Select value={selectedUsuario} onChange={handleUsuarioChange}>
               <MenuItem value="nuevo">Nuevo Usuario</MenuItem>
-              {filteredUsers.map(user => (
+              {filteredUsers
+              .filter((usuario) => usuario.usuarioPerfil && (usuario.usuarioPerfil.idPerfil === 2 || usuario.usuarioPerfil.idPerfil === 3))
+              .map(user => (
                 <MenuItem key={user.idUsuario} value={user.idUsuario}>
                   {user.usuarioNombre}
                 </MenuItem>

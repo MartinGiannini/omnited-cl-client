@@ -115,7 +115,7 @@ export default function SectoresGruposSelect() {
         messageType = 'grupoHabilidadesWS';
         fullData = {
           idGrupoHabilidad: selectedGrupoHabilidad,
-          grupoHabilidadNombre: selectedGrupoHabilidad === '1100011'
+          grupoHabilidadNombre: selectedGrupoHabilidad === '0'
             ? nuevoNombreGrupo
             : (nuevoNombreGrupo || grupoHabilidadDetails?.grupoHabilidadNombre),
           habilidad: sector?.sectorHabilidad.map((H) => ({
@@ -136,7 +136,7 @@ export default function SectoresGruposSelect() {
         messageType = 'grupoEstadosWS';
         fullData = {
           idGrupoEstado: selectedGrupoEstado,
-          grupoEstadoNombre: selectedGrupoEstado === '1100011'
+          grupoEstadoNombre: selectedGrupoEstado === '0'
             ? nuevoNombreGrupo
             : (nuevoNombreGrupo || grupoEstadoDetails?.grupoEstadoNombre),
           estado: (modifiedData.estados ||
@@ -171,7 +171,7 @@ export default function SectoresGruposSelect() {
     handleReset();
   };
 
-  // Renderizado de los detalles del grupo (habilidades o estados)
+  // Renderizado de los detalles del grupo (habilidades o estados) 
   const renderGrupoDetails = () => {
     const sector = getSectorById(selectedSector);
 
@@ -180,7 +180,7 @@ export default function SectoresGruposSelect() {
       const abilities = sector?.sectorHabilidad?.slice().sort((a, b) => a.idHabilidad - b.idHabilidad);
       return (
         <Container maxWidth="md">
-          {selectedGrupoHabilidad === '1100011' && (
+          {selectedGrupoHabilidad === '0' && (
             <TextField
               fullWidth
               label="Nombre del Grupo"
@@ -197,7 +197,7 @@ export default function SectoresGruposSelect() {
               // y en caso de grupo nuevo se arranca en 0.
               const defaultVal = modifiedData.habilidad?.[H.idHabilidad] !== undefined
                 ? modifiedData.habilidad[H.idHabilidad]
-                : (selectedGrupoHabilidad !== '1100011' && grupoHabilidadDetails?.habilidad
+                : (selectedGrupoHabilidad !== '0' && grupoHabilidadDetails?.habilidad
                   ? (grupoHabilidadDetails.habilidad.find((gh) => gh.idHabilidad === H.idHabilidad)?.habilidadValor || 0)
                   : 0);
               return (
@@ -230,13 +230,13 @@ export default function SectoresGruposSelect() {
       );
     } else if (selectedTipoGrupo === 'grupoEstados' && selectedGrupoEstado) {
       // Para grupoEstados, si se selecciona "agregar" se arma un default que incluye el estado "Activo" (id 1)
-      const defaultEstados = selectedGrupoEstado !== '1100011' && grupoEstadoDetails?.estado
+      const defaultEstados = selectedGrupoEstado !== '0' && grupoEstadoDetails?.estado
         ? grupoEstadoDetails.estado.map((e) => e.idEstado)
         : [1];
       const selectedEstados = modifiedData.estados || defaultEstados;
       return (
         <Container maxWidth="md">
-          {selectedGrupoEstado === '1100011' && (
+          {selectedGrupoEstado === '0' && (
             <TextField
               fullWidth
               label="Nombre del Grupo"
@@ -324,7 +324,7 @@ export default function SectoresGruposSelect() {
               value={selectedGrupoEstado}
               onChange={handleGrupoEstadoChange}
             >
-              <MenuItem value="1100011">Agregar Grupo</MenuItem>
+              <MenuItem value="0">Agregar Grupo</MenuItem>
               {getSectorById(selectedSector)?.sectorGrupoEstado.map((G) => (
                 <MenuItem key={G.idGrupoEstado} value={G.idGrupoEstado}>
                   {G.grupoEstadoNombre}
@@ -343,7 +343,7 @@ export default function SectoresGruposSelect() {
               value={selectedGrupoHabilidad}
               onChange={handleGrupoHabilidadChange}
             >
-              <MenuItem value="1100011">Agregar Grupo</MenuItem>
+              <MenuItem value="0">Agregar Grupo</MenuItem>
               {getSectorById(selectedSector)?.sectorGrupoHabilidad.map((G) => (
                 <MenuItem key={G.idGrupoHabilidad} value={G.idGrupoHabilidad}>
                   {G.grupoHabilidadNombre}

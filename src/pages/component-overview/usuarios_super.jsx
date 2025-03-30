@@ -193,7 +193,7 @@ export default function UsuariosSuper() {
 
     const usuario = sector?.sectorUsuario.find(
       (user) => user.idUsuario === selectedUsuario
-    );
+    ); 
 
     if (!usuario) return null;
 
@@ -480,8 +480,10 @@ export default function UsuariosSuper() {
           <FormControl fullWidth variant="filled" margin="normal">
             <InputLabel>Usuarios</InputLabel>
             <Select value={selectedUsuario} onChange={handleUsuarioChange}>
-              {getSectorById(selectedSector)?.sectorUsuario.map((usuario) => (
-                <MenuItem key={usuario.idUsuario} value={usuario.idUsuario}>{usuario.usuarioNombre}</MenuItem>
+              {getSectorById(selectedSector)?.sectorUsuario
+              .filter((usuario) => usuario.usuarioPerfil && (usuario.usuarioPerfil.idPerfil === 2 || usuario.usuarioPerfil.idPerfil === 3))
+              .map((usuario) => (
+                <MenuItem key={usuario.idUsuario} value={usuario.idUsuario}>{usuario.usuarioApellido + " " + usuario.usuarioNombre}</MenuItem>
               ))}
             </Select>
           </FormControl>

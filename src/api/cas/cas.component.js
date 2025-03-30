@@ -56,7 +56,7 @@ const CasComponent = () => {
         casRol: getCasRol(),
       }));
     }
-  }, []);
+  }, []); 
 };
 
 export default CasComponent;

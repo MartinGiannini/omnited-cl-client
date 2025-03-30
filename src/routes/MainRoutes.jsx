@@ -5,7 +5,7 @@ import Loadable from 'components/Loadable';
 import Dashboard from 'layout/Dashboard';
 
 const Color = Loadable(lazy(() => import('pages/component-overview/color')));
-const Typography = Loadable(lazy(() => import('pages/component-overview/typography')));
+const PanelMonitoria = Loadable(lazy(() => import('pages/component-overview/panel_monitoria')));
 const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
 
@@ -82,8 +82,8 @@ const MainRoutes = {
       element: <TestNotificaciones />
     },
     {
-      path: 'typography',
-      element: <Typography />
+      path: 'panel_monitoria',
+      element: <PanelMonitoria />
     }
   ]
 };

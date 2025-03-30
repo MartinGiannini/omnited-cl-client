@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { wbsUpdateConnStatus, wbsReceiveMsg } from '../../store/wbsSlice';
 import { setSendMessageFn } from '../../utils/websocketHelper';
-import { sendMessageThroughWebSocket } from '../backend/Conexion';
 import { messageHandlers } from './messageHandlers';
 
 const WS_URL = 'ws://localhost:8080/ws';
@@ -30,18 +29,6 @@ export default function WebSocketService() {
             setSendMessageFn(sendMessage);
         }
     }, [sendMessage]);
-
-    // Heartbeat: enviar "ping" periódicamente para mantener la conexión activa
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (readyState === ReadyState.OPEN) {
-                //sendMessage('ping');
-                sendMessageThroughWebSocket("ping", {});
-            }
-        }, 120000); // 120 segundos de intervalo
-
-        return () => clearInterval(interval); // Limpiar el intervalo al desmontar
-    }, [readyState, sendMessage]);
 
     // Actualizar el estado de la conexión en Redux
     useEffect(() => {
@@ -72,14 +59,13 @@ export default function WebSocketService() {
                     let parsedPayload;
                     if (typeof payload === "string") {
                         parsedPayload = JSON.parse(payload); // Si es una cadena, parsear a JSON
-                        console.log("*****************************")
-                        console.log("******** Es STRING **********")
-                        console.log("*****************************")
                     } else {
                         parsedPayload = payload; // Si ya es un objeto, úsalo directamente
                         console.log("*****************************")
                         console.log("******** Es OBJETO **********")
+                        console.log("Si no lo veo en la consola debería pensar en borrarlo")
                         console.log("*****************************")
+
                     }
 
                     const handler = messageHandlers[type] || messageHandlers.default;
