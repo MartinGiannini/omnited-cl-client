@@ -41,6 +41,15 @@ export default function PanelOperadores() {
   const operadores = useSelector((state) => state.storeRealTime) || [];
   const storeSector = useSelector((state) => state.storeSector);
 
+  const getEstadoName = (idSector, idEstado) => {
+    const sector = Object.values(storeSector).find((s) => s.idSector === idSector);
+    return (
+      sector
+        ?.sectorEstado.find((e) => e.idEstado === idEstado)
+        ?.estadoNombre || ''
+    );
+  };
+
   // Estado para filtrar operadores por sectores
   const [selectedSectors, setSelectedSectors] = useState([]);
 
@@ -104,7 +113,12 @@ export default function PanelOperadores() {
               {/* Columna 1: Usuario y estado actual */}
               <Box sx={{ flex: 1 }}>
                 <Typography variant="subtitle1">{op.idOperador}</Typography>
-                <Typography variant="body2">{op.operadorEstadoActual}</Typography>
+                <Typography variant="body2">
+                  {getEstadoName(op.idSector, op.idEstado)}
+                </Typography>
+                {op.estadoLastTime && (
+                  <Timer lastTime={op.estadoLastTime} />
+                )}
               </Box>
               {/* Columna 2: Estado de la extensión y tiempo transcurrido */}
               <Box sx={{ flex: 1 }}>

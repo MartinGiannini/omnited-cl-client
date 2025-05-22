@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    usuarioEstadoActual: '0',
+    usuarioEstadoActual: 1,
     extensionConnectionStatus: 0 // Desconectado
 };
 
@@ -21,7 +21,7 @@ const localSlice = createSlice({
     initialState,
     reducers: {
         updateUsuarioEstadoActual: (state, action) => {
-            state.usuarioEstadoActual = action.payload;
+            state.usuarioEstadoActual = action.payload.idEstado;
         },
         updateExtensionConnectionStatus: (state, action) => {
             state.extensionConnectionStatus = action.payload;

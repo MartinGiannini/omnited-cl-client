@@ -68,9 +68,7 @@ export default function States() {
             .slice()
             .sort((a, b) => a.idEstado - b.idEstado)
             .map((estado) => (
-              <MenuItem key={estado.idEstado} value={estado.idEstado}>
-                {estado.estadoNombre}
-              </MenuItem>
+              <MenuItem key={estado.idEstado} value={estado.idEstado}>{estado.estadoNombre}</MenuItem>
             ))}
         </Select>
       </FormControl>

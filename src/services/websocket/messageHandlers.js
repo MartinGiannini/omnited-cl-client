@@ -38,13 +38,8 @@ import {
 
 export const messageHandlers = {
 
-    ping: () => {
-        //Do nothing, es solo la respuesta del ping
-    },
-
     usuariologinDB: (dispatch, message) => {
         dispatch(updateUsuarioData(message));
-        dispatch(updateUsuarioEstadoActual(1));
     },
 
     usuariologinsectoresDB: (dispatch, message) => {
@@ -149,13 +144,9 @@ export const messageHandlers = {
         dispatch(addOrUpdateOperador(message));
     },
 
-    /*
-    otherTreatment: (dispatch, message) => {
-        const parsedMessage = JSON.parse(message);
-        dispatch(updateOtherState(parsedMessage));
+    operadorDataDB: (dispatch, message) => {
+        dispatch(updateUsuarioEstadoActual(message));
     },
-    */
-
 
     default: (dispatch, message) => {
         console.warn("Unrecognized message type:", message);
