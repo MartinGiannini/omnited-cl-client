@@ -1,0 +1,187 @@
+/* src/pages/component-overview/boteditor/boteditor.css */
+
+/* Layout principal */
+.bot-builder-layout {
+  display: flex;
+  height: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background: #f9fafb;
+  padding: 16px;
+  border-right: 1px solid #e5e7eb;
+  box-sizing: border-box;
+}
+
+.sidebar hr {
+  margin: 12px 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+.sidebar-section {
+  margin-bottom: 16px;
+}
+
+/* Ítems “arrastrables” */
+.sidebar-item {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  cursor: grab;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.sidebar-item:hover {
+  background: #f3f4f6;
+}
+
+/* Colores según tipo (más suaves) */
+.sidebar-item.out-item {
+  background: #e3f2fd;
+  border-color: #90caf9;
+}
+.sidebar-item.in-item {
+  background: #fff3e0;
+  border-color: #ffb74d;
+}
+.sidebar-item.cond-item {
+  background: #fffde7;
+  border-color: #ffeb3b;
+}
+.sidebar-item.drv-item {
+  background: #e0f7fa;
+  border-color: #4dd0e1;
+}
+.sidebar-item.svc-item {
+  background: #f3e5f5;
+  border-color: #ce93d8;
+}
+
+/* Zona del canvas */
+.canvas-wrapper {
+  flex: 1;
+  position: relative;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+/* Feedback al arrastrar */
+.canvas-wrapper.drag-over {
+  border: 2px dashed #2563eb;
+}
+
+/* Estilos comunes de nodo */
+.node {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  width: 180px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Nodos por tipo */
+.out-node {
+  background: #e0f2fe;
+  border-color: #60a5fa;
+}
+.in-node {
+  background: #fff4e5;
+  border-color: #fbbf24;
+}
+.cond-node {
+  background: #fefaea;
+  border-color: #f59e0b;
+}
+.drv-node {
+  background: #f0fdfa;
+  border-color: #2dd4bf;
+}
+.svc-node {
+  background: #eef2ff;
+  border-color: #6366f1;
+}
+
+/* Texto de contenido */
+.node-content {
+  width: 100%;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-size: 12px;
+  outline: none;
+}
+
+/* Etiquetas dentro de Condición */
+.cond-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin-top: 2px;
+  padding: 0 4px;
+}
+
+/* Sombra al seleccionar un nodo */
+.node.selected {
+  border-color: #2563eb;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Selects y campos inputs (clase base) */
+.node-select {
+  width: 100%;
+  margin-top: 4px;
+  font-size: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 2px 4px;
+  box-sizing: border-box;
+}
+
+/* Estilos para los “handles” de React Flow */
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #aaa;
+  border: 1px solid #ffffff;
+}
+.react-flow__handle-source {
+  background: #aaa;
+}
+.react-flow__handle-target {
+  background: #aaa;
+}
+
+/* Ajustes de texto para opciones del NodoIn */
+.in-node .MuiFormHelperText-root {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.invar-node {
+  background: #eef6ff;    /* celeste muy claro */
+  border-color: #3b82f6;  /* azul más intenso */
+}
+
+/* Sidebar-item para inVar */
+.sidebar-item.inVar-item {
+  background: #eef6ff;
+  border-color: #3b82f6;
+}
+.sidebar-item.inVar-item::before {
+  content: '🔗';
+  margin-right: 4px;
+}

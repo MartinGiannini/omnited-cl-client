@@ -35,6 +35,9 @@ import { addOrUpdateOperador } from '../../store/realTimeSlice';
 import { 
     updateUsuarioEstadoActual
 } from '../../store/localSlice';
+import {
+    updateBotsWhatsAppData
+} from '../../store/botWhatsAppSlice';
 
 export const messageHandlers = {
 
@@ -146,6 +149,10 @@ export const messageHandlers = {
 
     operadorDataDB: (dispatch, message) => {
         dispatch(updateUsuarioEstadoActual(message));
+    },
+
+    usuariologinbotwhatsappDB: (dispatch, message) => {
+        dispatch(updateBotsWhatsAppData(message));
     },
 
     default: (dispatch, message) => {

@@ -4,7 +4,6 @@ import { lazy } from 'react';
 import Loadable from 'components/Loadable';
 import Dashboard from 'layout/Dashboard';
 
-const Color = Loadable(lazy(() => import('pages/component-overview/color')));
 const PanelMonitoria = Loadable(lazy(() => import('pages/component-overview/panel_monitoria')));
 const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
@@ -16,6 +15,7 @@ const Grupos = Loadable(lazy(() => import('pages/component-overview/grupos_super
 const ColasSuper = Loadable(lazy(() => import('pages/component-overview/colas_super')));
 const ColasAdmin = Loadable(lazy(() => import('pages/component-overview/colas_admin')));
 const WhatsApp = Loadable(lazy(() => import('pages/component-overview/whatsapp_opera')));
+const BotEditor = Loadable(lazy(() => import('pages/component-overview/boteditor')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -29,8 +29,8 @@ const MainRoutes = {
       element: <DashboardDefault />
     },
     {
-      path: 'color',
-      element: <Color />
+      path: 'boteditor',
+      element: <BotEditor />
     },
     {
       path: 'dashboard',

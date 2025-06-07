@@ -42,7 +42,14 @@ const administracion = {
       title: 'Habilidades',
       type: 'item',
       url: '/habilidades_admin',
-      icon: icons.CaretUpFilled
+      icon: icons.StarFilled
+    },
+    {
+      id: 'BotEditor',
+      title: 'BotEditor',
+      type: 'item',
+      url: '/botEditor',
+      icon: icons.StarFilled
     }
   ]
 };

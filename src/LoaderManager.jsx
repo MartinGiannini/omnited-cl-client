@@ -5,6 +5,7 @@ import CasComponent from './api/cas/cas.component';
 import WebSocketService from './services/websocket/websocket.service';
 import GlobalDialog from './components/GlobalDialog';
 import { closeDialog } from './store/dialogSlice';
+import '@xyflow/react/dist/style.css';
 
 export default function LoaderManager() {
   const casLogged = useSelector((state) => state.storeCas.casLogged);

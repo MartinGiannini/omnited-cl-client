@@ -14,6 +14,7 @@ import permisosSlice from 'store/permisosSlice';
 import dialogSlice from 'store/dialogSlice';
 import estrategiasSlice from 'store/estrategiasSlice';
 import realTimeSlice from 'store/realTimeSlice';
+import botWhatsAppSlice from 'store/botWhatsAppSlice';
 import localSlice from 'store/localSlice';
 
 import loggerMiddleware from './middleware/loggerMiddleware';
@@ -34,6 +35,7 @@ export const store = configureStore({
     storeDialog: dialogSlice,
     storeEstrategias: estrategiasSlice,
     storeRealTime: realTimeSlice,
+    storeBotWhatsApp: botWhatsAppSlice,
     storeLocal: localSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
